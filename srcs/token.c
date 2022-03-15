@@ -6,7 +6,7 @@
 /*   By: crondeau <crondeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 09:59:46 by crondeau          #+#    #+#             */
-/*   Updated: 2022/03/09 10:57:12 by crondeau         ###   ########.fr       */
+/*   Updated: 2022/03/15 11:06:32 by crondeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ int	is_char_in_set(char c, char *set)
 int	new_token_next(t_token **token)
 {
 	(*token)->next = ft_lst_create_token("");
-	*token = (*token)->next;
-	if (!(*token))
+	if (!(*token)->next)
 		return (1);
+	*token = (*token)->next;	
 	return (0);
 }
 

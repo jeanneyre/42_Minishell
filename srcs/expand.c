@@ -6,7 +6,7 @@
 /*   By: crondeau <crondeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 10:55:26 by crondeau          #+#    #+#             */
-/*   Updated: 2022/03/09 14:06:42 by crondeau         ###   ########.fr       */
+/*   Updated: 2022/03/15 12:15:58 by crondeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,17 +38,19 @@ int	expand_var(char **str, int i, t_env *env)
 	return (0);
 }
 
-int	expand_str(char **str, t_env *env)
+int	expand_str(char **str, t_env *env, int *expanded)
 {
 	int	i;
 	int	quotes;
 
 	i = -1;
+	quotes = 0;
 	while ((*str)[++i])
 	{
 		ft_update_quotes(*str, i, &quotes);
-		if ((*str)[i] == '$' && quotes != 1)
+		if ((*str)[i] == '$' && (quotes == 0 || quotes == 2))
 		{
+			*expanded = 1;
 			if (expand_var(str, i, env))
 				return (1);
 			if (i >= (int)ft_strlen(*str))
@@ -67,9 +69,10 @@ int	expand_cmd_token(t_cmd *cmd, t_env *env)
 		token = cmd->token;
 		while (token)
 		{
+			token->expanded = 0;
 			if (token->type == 1)
 			{
-				if (expand_str(&token->data, env))
+				if (expand_str(&token->data, env, &token->expanded))
 					return (1);
 			}
 			token = token->next;

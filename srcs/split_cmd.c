@@ -6,7 +6,7 @@
 /*   By: crondeau <crondeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 10:17:57 by crondeau          #+#    #+#             */
-/*   Updated: 2022/03/09 11:59:53 by crondeau         ###   ########.fr       */
+/*   Updated: 2022/03/15 12:19:30 by crondeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,4 +77,30 @@ int	split_cmd(char *rdl, t_cmd **cmd)
 			return (1);
 	}
 	return (0);
+}
+
+int	nbr_cmd(t_cmd *cmd)
+{
+	int i;
+
+	i = 0;
+	while (cmd)
+	{
+		cmd = cmd->next;
+		i++;
+	}
+	return (i);
+}
+
+t_cmd	*get_i_cmd(t_cmd *cmd, int j)
+{
+	int i;
+
+	i = 0;
+	while (i < j)
+	{
+		cmd = cmd->next;
+		i++;
+	}
+	return (cmd);
 }
